@@ -45,13 +45,16 @@ locationButton.on('click', (e) => {
         return alert('Geolocation not supported by your browser.');
     }
 
+    locationButton.attr('disabled', 'disabled').text('Sending location...');
+
     navigator.geolocation.getCurrentPosition((position) => {
-        console.log(position);
+        locationButton.removeAttr('disabled').text('Sending Location');
         socket.emit('createLocationMessage', {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude
         })
     }, () => {
+        locationButton.removeAttr('disabled').text('Sending Location');
         alert('Unable to fetch location');
     })
 })
