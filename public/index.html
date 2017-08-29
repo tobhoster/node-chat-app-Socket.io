@@ -4,18 +4,29 @@
     <meta charset="utf-8">
     <title>Page Title</title>
 
+    <link rel="stylesheet" href="/css/styles.css"/>
     <script type="text/javascript" src="/js/libs/jquery-3.2.1.min.js"></script> 
 </head>
-<body>
+<body class="chat">
 
-    <p>Welcome to the chat app - Socket.io</p>
+    <div class="chat__sidebar">
+        <h3>People</h3>
+        <div id="users"></div>
+    </div>
 
-    <ol id="messages"></ol>
-    <form id="message-form">
-        <input name="message" type="text"  placeholder="Message"/>
-        <button>Submit</button>
-    </form>
-    <button id="send_location">Send Location</button>
+    <div class="chat__main">
+        <ol id="messages" class="chat__messages"></ol>
+
+        <div class="chat__footer">
+            <form id="message-form">
+                <input name="message" type="text"  placeholder="Message"/>
+                <button>Submit</button>
+            </form>
+            <button id="send_location">Send Location</button>
+        </div>
+    </div>
+
+    
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/index.js"></script>

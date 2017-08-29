@@ -29,11 +29,13 @@ socket.on('newLocationMessage', (message) => {
 jQuery('#message-form').on('submit', (e) => {
     e.preventDefault();
 
+    var messageTextbox = jQuery('[name=message]');
+
     socket.emit('createMessage', {
         from: 'User',
-        text: jQuery('[name=message]').val()
+        text: messageTextbox.val()
     }, () => {
-
+        messageTextbox.val('');
     })
 });
 
