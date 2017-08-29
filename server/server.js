@@ -17,19 +17,15 @@ app.use(express.static(publicPath));
 io.on('connection', (socket) => {
     console.log('New User Connected');
 
-    // Broadcasted to every user
-    socket.emit('newMessage', {
-        from: 'Admin',
-        text: 'Welcome to the chat app 💬'
-    });
-
-    // socket.broadcast.emit form Admin text new User joined
-    socket.broadcast.emit('newMessage', generateMessage('Admin', 'New User Joined 👱🏿'));
-
     socket.on('join', (params, callback) => {
         if(!isRealString(params.name) || !isRealString(params.room)) {
             callback('Name and room name are required'); 
         }
+
+        socket.join(params.room);
+
+        socket.emit('newMessage', generateMessage('Admin', 'Welcome to the chat App 💬'));
+        socket.broadcast.to(params.room).emit('newMessage', generateMessage('Admin', `👱🏿 ${params.name} has Joined `));
 
         callback();
     });
